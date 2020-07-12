@@ -14,8 +14,8 @@ $ processing-java --sketch=C:\full\path\to\oop-ice-fishing-game --run
 - click the run button
 
 ## About the Game: 
-Controls: mouse movement and mouse clicks to control the fishing line.
-Objective: you are a penguin fisherman trying to catch as many fish as you can in a two-minute time frame. 
+- Controls: mouse movement and mouse clicks to control the fishing line.
+- Objective: you are a penguin fisherman trying to catch as many fish as you can in a two-minute time frame. 
 avoid pieces of garbage as they will knock fish off your hook. 
 
 #### Author Info
