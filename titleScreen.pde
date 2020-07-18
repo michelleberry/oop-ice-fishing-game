@@ -4,6 +4,7 @@ class titleScreen {
   PImage helpInstructions; 
   PImage startButton;
   PImage helpButton; 
+  PImage scoresButton; 
   PImage penguin; 
 
   public titleScreen() {
@@ -11,6 +12,19 @@ class titleScreen {
     helpInstructions = loadImage("helpBox.PNG"); 
     helpButton = loadImage("helpBut.png"); 
     startButton = loadImage("startBut.png"); 
+    scoresButton = loadImage("viewScores.png"); 
+  }
+  
+  public void displayTitleScreen(){
+    background(255); 
+    
+    theTitleScreen.displayTitle();
+    theTitleScreen.titleScreenButtons(); 
+    if(theTitleScreen.titleScreenButtonSensors() == 1){
+      theGame = new game(); 
+      theGame.setStartTime(millis()); 
+    }
+  
   }
 
   void displayTitle() {
@@ -38,15 +52,13 @@ class titleScreen {
   void titleScreenButtons() {
     //fill(88, 214, 141); 
     //rect(400, 500, 180, 60);
-    //fill(0, 0, 0);  
-    
 
-    ///fill(231, 76, 60);  
-    ///rect(400, 600, 180, 60);
-    ///fill(0, 0, 0);  
+    //fill(231, 76, 60);  
+    //rect(400, 600, 180, 60);
+      
     image(startButton, 390, 490); 
     image(helpButton, 390, 590); 
-    
+    image(scoresButton, 390, 690); 
   }
   
   //return the gameStage number
@@ -56,6 +68,8 @@ class titleScreen {
         return 3; //start game
       } else if (mouseY > 600 && mouseY < 660 ) {
         return 2; //help screen
+      } else if(mouseY > 700 && mouseY < 770){
+        return 6; 
       }
     }
     return 1; 
