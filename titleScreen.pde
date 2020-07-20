@@ -1,10 +1,14 @@
+
+//handles user interface operations that aren't actual gameplay
 class titleScreen {
 
   PImage title; 
   PImage helpInstructions; 
   PImage startButton;
   PImage helpButton; 
-  PImage scoresButton; 
+  PImage scoresButton;
+  PImage recordScore; 
+  PImage toTitle; 
   PImage penguin; 
 
   public titleScreen() {
@@ -13,49 +17,23 @@ class titleScreen {
     helpButton = loadImage("helpBut.png"); 
     startButton = loadImage("startBut.png"); 
     scoresButton = loadImage("viewScores.png"); 
+    recordScore = loadImage("saveScore.png");
+    toTitle = loadImage("returnToTitle.png");
   }
   
+  ///////////////////////////////////////////////title//////////////////////////////////////////////////////
   public void displayTitleScreen(){
     background(255); 
-    
-    theTitleScreen.displayTitle();
-    theTitleScreen.titleScreenButtons(); 
-    if(theTitleScreen.titleScreenButtonSensors() == 1){
-      theGame = new game(); 
-      theGame.setStartTime(millis()); 
-    }
-  
+    displayTitle();
+    titleScreenButtons(); 
   }
-
+  
   void displayTitle() {
     image(title, 120, 100);
   }
   
-  void displayHelpInstructions(){
-    image(helpInstructions, 150, 10); 
-    //fill(0,0,0); 
-    //rect(680, 90, 50,50); 
-  }
-  
-  int helpExitButton(){
-    if(mousePressed && mouseX > 680 && mouseX < 730 && mouseY > 90 && mouseY < 140){
-      return 1; 
-    }
-    return 2; 
-  }
-  
-  int helpExitButtonSensor(){
-    return 2; 
-  }
-
   //show start and help buttons
   void titleScreenButtons() {
-    //fill(88, 214, 141); 
-    //rect(400, 500, 180, 60);
-
-    //fill(231, 76, 60);  
-    //rect(400, 600, 180, 60);
-      
     image(startButton, 390, 490); 
     image(helpButton, 390, 590); 
     image(scoresButton, 390, 690); 
@@ -74,4 +52,45 @@ class titleScreen {
     }
     return 1; 
   }
+  
+  ///////////////////////////////////////////////help//////////////////////////////////////////////////////
+   void displayHelpInstructions(){
+    image(helpInstructions, 150, 10); 
+  }
+  
+  int helpExitButtonSensor(){
+    if(mousePressed && mouseX > 680 && mouseX < 730 && mouseY > 90 && mouseY < 140){
+      return 1; 
+    }
+    return 2; 
+  }
+  
+  ///////////////////////////////////////////////game end//////////////////////////////////////////////////////
+  public void displayGameEndScreen(){
+    background(255); 
+    
+    fill(0, 0, 0);  
+    textSize(50); 
+    text("Time's up!! \nYou caught " + theGame.getScore() + " fish.", 250, 400);
+   
+    image(recordScore, 500, 600); 
+    image(toTitle, 250, 600); 
+  }
+  
+  int gameEndScreenButtonSensors(){
+    if(mousePressed & mouseY < 670 && mouseY > 610){
+      if(mouseX > 260 && mouseX < 440){
+        return 1; 
+      } else if(mouseX > 510 && mouseX <690){
+        return 5; 
+      }
+    }
+    return 4; 
+  }
+
+ 
+
+
+  
+  
 }

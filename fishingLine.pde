@@ -1,3 +1,5 @@
+
+//used to catch fish with, moves with mouse movements
 public class fishingLine {
 
   boolean fishOnHook;

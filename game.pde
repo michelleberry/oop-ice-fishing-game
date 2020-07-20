@@ -22,9 +22,13 @@ class game {
   int startTime; 
   int endTime; 
   int timeLeft; 
+  int minutes; 
+  int seconds; 
 
   public game() {
     score = 0; 
+    minutes = 0; 
+    seconds = 0; 
     startTime = 0; 
     endTime = 0; 
     timeLeft = 0; 
@@ -41,6 +45,28 @@ class game {
     feesh = loadImage("fish.png");
     standingFeesh = loadImage("uprightFish.png");
   }
+  
+  void displayGamePlay(){
+    background(255); 
+    
+    //sea background 
+    fill(0, 345, 255); 
+    rect(0, 200, 1000, 700);
+
+    displayFisherman(); 
+    displayScore(); 
+    displayTimer();
+
+    //garbage collection on old fish and obstacles
+    removeOldFish(); 
+    removeOldObstacles(); 
+
+    fishActions(); 
+    obstacleActions();
+
+    spawnNewObjects(); 
+    bonkedFish();
+  }
 
   void displayScore() {
     fill(0, 0, 0);  
@@ -51,9 +77,9 @@ class game {
   void displayTimer(){
     fill(0,0,0); 
     textSize(25); 
-    int minutes = (endTime-millis())/60000;
-    int seconds = ((endTime-millis())/1000) - minutes*60;
-    text( "time left: " + minutes + ":" + seconds , 10, 90); 
+    minutes = (endTime-millis())/60000;
+    seconds = ((endTime-millis())/1000) - minutes*60;
+    text( "time left: " + minutes + ":" + nf(seconds,2) , 10, 90); 
     
   }
 
@@ -135,11 +161,12 @@ class game {
 
   // displays stack of fish that have been caught in upper left corner
   void caughtFishStack() {
-    if (score > 0  ) {
-      for (int i=0; i < score; i++) { 
-        image(feesh, 100, 100-(10*i));
+    for (int i=0; i < score; i++) { 
+      if( i < 13 ){
+        image(feesh, 200, 100-(10*i));
       }
     }
+    
   }
 
   //animates fish zooming away after they have been knocked off the fishing line

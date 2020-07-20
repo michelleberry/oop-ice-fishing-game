@@ -1,5 +1,3 @@
-
-
 import java.util.SortedMap; 
 import java.util.TreeMap; 
 import java.util.Iterator; 
@@ -7,7 +5,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-
+//handles score recording/leaderboard feature
 class scoreKeeper {
 
   SortedMap<Integer, String> scores;
@@ -24,9 +22,9 @@ class scoreKeeper {
     enterButton = loadImage("enter.png"); 
     cancelButton = loadImage("cancel.png");
   }
-
-  textInput getTextBox() {
-    return textBox;
+  
+  public textInput getTextBox(){
+    return textBox; 
   }
 
   void scoreRecordingScreen() {
@@ -47,11 +45,6 @@ class scoreKeeper {
   }
 
   int scoreRecordingButtonSensors(int scored) {
-    //fill(88, 214, 141); 
-    //rect(510, 420, 200, 80);
-
-    //fill(231, 76, 60);  
-    //rect(255, 420, 200, 80);
     if (mousePressed && mouseY > 420 && mouseY < 500) {
       if (mouseX > 510 && mouseX < 710) {
         writeScore(textBox.getWord(), scored); 
@@ -78,24 +71,21 @@ class scoreKeeper {
 
     fill(0, 0, 0);  
     textSize(30); 
-    text("Leaderboard --- TOP 5 FISHERS", 300, 80);
-
-    Set s = scores.entrySet(); 
+    text("Leaderboard --- TOP FISHERS", 300, 80);
 
     // Using iterator in SortedMap 
+    Set s = scores.entrySet();
     Iterator i = s.iterator(); 
 
-    // Traversing map. 
+    // Traversing map with iterator
     int x = 0; 
-    while (i.hasNext() && x < 6) 
+    while (i.hasNext() && x < 7) 
     { 
       Map.Entry m = (Map.Entry)i.next(); 
       text((x+1) + ". " + (String)m.getValue() + "    " + (Integer)m.getKey(), 200, 200+(80*x)); 
-      x++; 
+      x++;
     }  
 
-    //fill(88, 214, 141); 
-    //rect(700, 790, 180, 60); //back to start
     image(toTitle, 700, 780);
   }
 
@@ -105,8 +95,10 @@ class scoreKeeper {
     }
     return 6;
   }
-
+  
+  //write recorded score to json file of scores.
   void writeScore(String name, int score) {
+    //processing handles json operations slightly different than pure java, no parser needed
     JSONObject scoreFile = loadJSONObject("scores.json"); 
     JSONArray playersArr = (JSONArray) scoreFile.get("players");
 
@@ -121,7 +113,8 @@ class scoreKeeper {
     toWrite.put("players", playersArr); 
     saveJSONObject(toWrite, "data/scores.json");
   }
-
+  
+  //load json file of scores into sorted map (descending order)
   void loadTopScores() {
     JSONObject scoreFile = loadJSONObject("scores.json"); 
     JSONArray playersArr = (JSONArray) scoreFile.get("players");

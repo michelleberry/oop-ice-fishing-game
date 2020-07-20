@@ -1,3 +1,5 @@
+
+//a text box that recieves text input from user keyboard
 class textInput{
 
   boolean recievingInput; 

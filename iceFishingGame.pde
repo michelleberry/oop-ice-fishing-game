@@ -17,75 +17,49 @@ void setup() {
   background(255); 
    
   scores = new scoreKeeper();
-  theTitleScreen = new titleScreen(); 
-  
-  //theGame = new game(); //REMOVE JUST FOR TESTING PLS REMOVE!!!!!!!!!!1
+  theTitleScreen = new titleScreen();
+  theGame = new game(); //put here to avoid seg faults if you wish to change gameStage (below) in setup, otherwise redundant
+                        //new game is instantiated whenever "start" button is pressed.
   
   scores.loadTopScores(); 
   gameStage = 1;
 }
 
+//this is the "main" method for Processing, it executes constantly like a while(1) loop 
+//i have tried to keep it as compact & organized as possible
 void draw() {
-  if (gameStage==1) {
+  //title screen
+  if (gameStage==1) { 
     theTitleScreen.displayTitleScreen(); 
+    if(theTitleScreen.titleScreenButtonSensors() == 1){
+      theGame = new game(); 
+      theGame.setStartTime(millis()); 
+    }
     gameStage = theTitleScreen.titleScreenButtonSensors();
-    
+  
+  //help screen
   } else if(gameStage==2){
     theTitleScreen.displayHelpInstructions(); 
-    gameStage = theTitleScreen.helpExitButton(); 
-    
+    gameStage = theTitleScreen.helpExitButtonSensor(); 
+  
+  //game play screen
   } else if (gameStage==3) {
-    background(255); 
-    
-    //sea background 
-    fill(0, 345, 255); 
-    rect(0, 200, 1000, 700);
-
-    theGame.displayFisherman(); 
-    theGame.displayScore(); 
-    theGame.displayTimer();
-
-    //garbage collection on old fish and obstacles
-    theGame.removeOldFish(); 
-    theGame.removeOldObstacles(); 
-
-    theGame.fishActions(); 
-    theGame.obstacleActions();
-
-    theGame.spawnNewObjects(); 
-    theGame.bonkedFish();
+    theGame.displayGamePlay(); 
     if(!theGame.isTimeLeft()){
       gameStage = 4; 
     }
+    
+  //game end screen ( time is up)
   } else if (gameStage==4){
-    PImage recordScore = loadImage("saveScore.png"); 
-    PImage toTitle = loadImage("returnToTitle.png"); 
+    theTitleScreen.displayGameEndScreen(); 
+    gameStage = theTitleScreen.gameEndScreenButtonSensors();
     
-    background(255); 
-    
-    fill(0, 0, 0);  
-    textSize(50); 
-    text("Time's up!! \nYou caught " + theGame.getScore() + " fish.", 250, 400);
-   
-    if(mousePressed & mouseY < 670 && mouseY > 610){
-      if(mouseX > 260 && mouseX < 440){
-        gameStage = 1; 
-      } else if(mouseX > 510 && mouseX <690){
-        gameStage = 5; 
-      }
-    }
-    image(recordScore, 500, 600); 
-    image(toTitle, 250, 600); 
-    
-    //fill(231, 76, 60);
-    //rect(260, 610, 180, 60);
-    
-    //fill(88, 214, 141);
-    //rect(510, 610, 180, 60);
-    
+  //record user nickname for score recording screen
   } else if(gameStage==5){
     scores.scoreRecordingScreen(); 
     gameStage = scores.scoreRecordingButtonSensors(theGame.getScore()); 
+    
+  //view highscores screen
   } else if(gameStage==6){
     scores.scoreViewingScreen(); 
     gameStage = scores.scoreViewingScreenButtons(); 
@@ -94,7 +68,6 @@ void draw() {
 
 void keyTyped(){
   scores.getTextBox().aKeyTyped(); 
-  
 }
 
 void mouseMoved() {

@@ -1,5 +1,6 @@
 import java.util.Random; 
 
+//fish object, swim around and get caught
 public class fish {
 
   int x; 

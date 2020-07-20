@@ -1,5 +1,7 @@
 import java.util.Random; 
 
+//an obstacle that knocks fish off of your hook,
+//looks like a plastic bottle right now
 public class obstacle {
   
   int x; 
