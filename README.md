@@ -4,6 +4,8 @@ All images featured in the game are my own original artwork with the exception o
 
 ## Running the Game:
 
+Requirements: have processing installed.
+
 ### windows 10: 
 - ensure your system has C:\Programs\processing-3.5.3 in Path, which can be found in environment variables
 - from cmd, type as follows:
