@@ -2,9 +2,9 @@
 //used to catch fish with, moves with mouse movements
 public class fishingLine {
 
+  int depth; //y coord
   boolean fishOnHook;
   boolean disabled; 
-  int depth; //y coord
   PImage hook; 
   
   public fishingLine(){
@@ -36,7 +36,6 @@ public class fishingLine {
   
   public void updateLength(int newY){
     depth = newY; 
-  
   }
   
   public int getX(){

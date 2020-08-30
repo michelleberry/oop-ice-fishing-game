@@ -69,7 +69,6 @@ public class fish {
   }
 
   void slippedOffHook(fishingLine hook) {
-    //OPTIONAL: display message saying what happened?
     hook.setFishOnHook(false);
     caught = false; 
     inFrame = false;

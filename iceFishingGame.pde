@@ -18,7 +18,7 @@ void setup() {
    
   scores = new scoreKeeper();
   theTitleScreen = new titleScreen();
-  theGame = new game(); //put here to avoid seg faults if you wish to change gameStage (below) in setup, otherwise redundant
+  theGame = new game(); //put here to avoid seg faults if you wish to change gameStage (below) in setup, (likely for testing purposes) otherwise redundant
                         //new game is instantiated whenever "start" button is pressed.
   
   scores.loadTopScores(); 

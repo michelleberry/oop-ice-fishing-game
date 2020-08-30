@@ -11,7 +11,7 @@ class game {
   int score; 
   fishingLine myLine; 
 
-  ArrayList<Integer> bonkedXCoords; //for fish that have been knocked off the fishing line
+  ArrayList<Integer> bonkedXCoords; //for fish that have been knocked ("bonked") off the fishing line
   ArrayList<Integer> bonkedYCoords; 
 
   //only used for animations / the images are not of objects in play
@@ -71,7 +71,7 @@ class game {
   void displayScore() {
     fill(0, 0, 0);  
     textSize(25); 
-    text("score: " + score, 60, 40);
+    text("score: " + score, 45, 45);
   }
   
   void displayTimer(){

@@ -8,7 +8,6 @@ class textInput{
   public textInput(){
     recievingInput = true; 
     word = ""; 
-  
   }
   
   public void showTyping(int x, int y){ 
